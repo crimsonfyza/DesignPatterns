@@ -49,19 +49,15 @@ public class MessageController {
 
     @Autowired
     private void createUser() {
-        AccountStrategy strategy;
 
-        strategy = new StudentAccount();
-        UserAccount userStudentReturn = strategy.determineRole("kevin", 12312312);
-        userRepository.save(userStudentReturn);
+        StudentAccount studentAccount = new StudentAccount();
+        userRepository.save(studentAccount.determineRole("kevin", 67867867));
 
-        strategy = new TeacherAccount();
-        UserAccount userTeacherReturn = strategy.determineRole("Michael", 23432423);
-        userRepository.save(userTeacherReturn);
+        TeacherAccount teacherAccount = new TeacherAccount();
+        userRepository.save(teacherAccount.determineRole("Michael", 23523523));
 
-        strategy = new ExaminerAccount();
-        UserAccount userExaminerReturn = strategy.determineRole("Aron", 3543543);
-        userRepository.save(userExaminerReturn);
+        ExaminerAccount examinerAccount = new ExaminerAccount();
+        userRepository.save(examinerAccount.determineRole("Aron", 235235213));
 
     }
 
