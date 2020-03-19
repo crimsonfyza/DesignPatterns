@@ -25,11 +25,17 @@ public class UserAccount {
 
     private int typeNumber;
 
-    public UserAccount(String username, String userRole, String type, int typeNumber) {
+    private String phoneNumber;
+
+    private String Email;
+
+    public UserAccount(String username, String userRole, String type, int typeNumber, String phoneNumber,String Email) {
         this.username = username;
         this.userRole = userRole;
         this.type = type;
         this.typeNumber = typeNumber;
+        this.phoneNumber = phoneNumber;
+        this.Email = Email;
     }
 
     public UserAccount(UserAccount p) {
@@ -37,5 +43,7 @@ public class UserAccount {
         this.userRole = p.userRole;
         this.type = p.type;
         this.typeNumber = p.typeNumber;
+        this.phoneNumber = p.phoneNumber;
+        this.Email = p.Email;
     }
 }

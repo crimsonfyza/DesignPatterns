@@ -51,13 +51,13 @@ public class MessageController {
     private void createUser() {
 
         StudentAccount studentAccount = new StudentAccount();
-        userRepository.save(studentAccount.determineRole("kevin", 67867867));
+        userRepository.save(studentAccount.determineRole("dfrhd", 23432, "0613561251", "kevinmeeuwessen@hotmail.com"));
 
         TeacherAccount teacherAccount = new TeacherAccount();
-        userRepository.save(teacherAccount.determineRole("Michael", 23523523));
+        userRepository.save(teacherAccount.determineRole("Michael", 23523523, "0613512342", "Michael@hotmail.com"));
 
         ExaminerAccount examinerAccount = new ExaminerAccount();
-        userRepository.save(examinerAccount.determineRole("Aron", 235235213));
+        userRepository.save(examinerAccount.determineRole("Aron", 235235213, "0613512342", "aronm@hotmail.com"));
 
     }
 
