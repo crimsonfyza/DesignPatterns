@@ -50,14 +50,34 @@ public class MessageController {
     @Autowired
     private void createUser() {
 
-        StudentAccount studentAccount = new StudentAccount();
-        userRepository.save(studentAccount.determineRole("dfrhd", 23432, "0613561251", "kevinmeeuwessen@hotmail.com"));
+	    // USERINPUT from Web interface
+        String type = "Teacher";
+        String username = "Michael";
+        int typeNumber = 23523523;
+        String phoneNumber = null;
+        String Email = null;
+        //
 
-        TeacherAccount teacherAccount = new TeacherAccount();
-        userRepository.save(teacherAccount.determineRole("Michael", 23523523, "0613512342", "Michael@hotmail.com"));
+       if (type == "Teacher") {
+           TeacherAccount teacherAccount = new TeacherAccount();
+           userRepository.save(teacherAccount.determineRole(username,typeNumber , phoneNumber , Email));
+       }
 
-        ExaminerAccount examinerAccount = new ExaminerAccount();
-        userRepository.save(examinerAccount.determineRole("Aron", 235235213, "0613512342", "aronm@hotmail.com"));
+        if (type == "Student") {
+            StudentAccount studentAccount = new StudentAccount();
+            userRepository.save(studentAccount.determineRole(username,typeNumber , phoneNumber , Email));
+        }
+
+        if (type == "Examiner") {
+            ExaminerAccount examinerAccount = new ExaminerAccount();
+            userRepository.save(examinerAccount.determineRole(username,typeNumber , phoneNumber , Email));
+        }
+
+
+        //ADAPTER PATTERN MICHAEL
+        NotificationAdapter notificationAdapter = new NotificationAdapter(Email, phoneNumber);
+        notificationAdapter.notify(username, Email, phoneNumber, "Je hebt een email EN sms verstuurd");
+
 
     }
 
