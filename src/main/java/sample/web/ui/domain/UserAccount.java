@@ -38,12 +38,4 @@ public class UserAccount {
         this.Email = Email;
     }
 
-    public UserAccount(UserAccount p) {
-        this.username = p.username;
-        this.userRole = p.userRole;
-        this.type = p.type;
-        this.typeNumber = p.typeNumber;
-        this.phoneNumber = p.phoneNumber;
-        this.Email = p.Email;
-    }
 }

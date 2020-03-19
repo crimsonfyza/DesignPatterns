@@ -31,28 +31,30 @@ public class NotificationAdapter implements Notification {
     }
 
     @Override
-    public void notify(String name, String email, String telnr, String message) {
+    public NotificationObject notify(String name, String email, String telnr, String message) {
+        NotificationObject notificationObject = null;
 
         try {
-            if (email != null && telnr != null) {
-                communicationMail.send(name, email, message);
-                communicationSMS.send(name, telnr, message);
-            }
-            else if (email != null) {
-                communicationMail.send(name, email, message);
-            }
-            else if (telnr != null) {
-                communicationSMS.send(name, telnr, message);
-            }
-            else {
 
+            if (email != null) {
+                notificationObject = communicationMail.send(name, email, message);
+            }
+            else if (telnr != null && notificationObject == null) {
+                notificationObject = communicationSMS.send(name, telnr, message);
+            }
+            else if (notificationObject == null) {
+                System.out.println("Overig");
                 String defaultEmail = "admin@admin.com";
                 String defaultMessage = "Notification send to Administrator";
-                communicationMail.send(name, defaultEmail, defaultMessage);
+                notificationObject = communicationMail.send(name, defaultEmail, defaultMessage);
             }
+
         } catch (Exception e) {
             System.out.println("Failed to send notification, please check with you Administrator");
         }
+
+        return notificationObject;
+
     }
 }
 

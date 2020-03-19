@@ -13,6 +13,7 @@
 
 package sample.web.ui.controller;
 
+import javax.management.openmbean.InvalidOpenTypeException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,25 +38,31 @@ import java.util.Optional;
 public class MessageController {
 
     private final UserRepository userRepository;
+    private final NotificationRepository notificationRepository;
 
     // constructor dependency injection
 	@Autowired
 	public MessageController(
-                             UserRepository userRepository
+                             UserRepository userRepository,
+                             NotificationRepository notificationRepository
     ) {
         this.userRepository = userRepository;
+        this.notificationRepository = notificationRepository;
 	}
-
 
     @Autowired
     private void createUser() {
 
 	    // USERINPUT from Web interface
+
+
         String type = "Teacher";
         String username = "Michael";
         int typeNumber = 23523523;
-        String phoneNumber = null;
+        String phoneNumber = "12312";
         String Email = null;
+
+
         //
 
        if (type == "Teacher") {
@@ -76,7 +83,8 @@ public class MessageController {
 
         //ADAPTER PATTERN MICHAEL
         NotificationAdapter notificationAdapter = new NotificationAdapter(Email, phoneNumber);
-        notificationAdapter.notify(username, Email, phoneNumber, "Je hebt een email EN sms verstuurd");
+        NotificationObject notificationObject = notificationAdapter.notify(username, Email, phoneNumber, "Het bericht wordt verstuurd");
+        notificationRepository.save(notificationObject);
 
 
     }
