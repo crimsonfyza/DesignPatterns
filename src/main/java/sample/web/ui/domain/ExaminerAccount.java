@@ -1,7 +1,7 @@
 package sample.web.ui.domain;
 
 
-import sample.web.ui.repository.AccountStrategy;
+        import sample.web.ui.repository.AccountStrategy;
 
 public class ExaminerAccount implements AccountStrategy {
     @Override

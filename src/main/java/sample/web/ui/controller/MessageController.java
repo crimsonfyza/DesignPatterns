@@ -35,6 +35,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
+
 public class MessageController {
 
     private final UserRepository userRepository;
