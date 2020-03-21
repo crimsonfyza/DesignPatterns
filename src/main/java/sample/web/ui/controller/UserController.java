@@ -13,37 +13,26 @@
 
 package sample.web.ui.controller;
 
-import javax.management.openmbean.InvalidOpenTypeException;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import sample.web.ui.domain.*;
 import sample.web.ui.repository.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Optional;
 
 
 @Controller
 @RequestMapping("/")
 
-public class MessageController {
+public class UserController {
 
     private final UserRepository userRepository;
     private final NotificationRepository notificationRepository;
 
     // constructor dependency injection
 	@Autowired
-	public MessageController(
+	public UserController(
                              UserRepository userRepository,
                              NotificationRepository notificationRepository
     ) {
@@ -61,7 +50,7 @@ public class MessageController {
         String username = "Michael";
         int typeNumber = 23523523;
         String phoneNumber = "12312";
-        String Email = null;
+        String Email = "akbudwwakd";
 
 
         //
@@ -82,7 +71,7 @@ public class MessageController {
         }
 
 
-        //ADAPTER PATTERN MICHAEL
+        //ADAPTER PATTERN
         NotificationAdapter notificationAdapter = new NotificationAdapter(Email, phoneNumber);
         NotificationObject notificationObject = notificationAdapter.notify(username, Email, phoneNumber, "Het bericht wordt verstuurd");
         notificationRepository.save(notificationObject);

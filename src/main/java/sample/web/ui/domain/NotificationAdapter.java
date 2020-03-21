@@ -1,8 +1,5 @@
 package sample.web.ui.domain;
 
-import sample.web.ui.repository.Communication;
-import sample.web.ui.repository.Notification;
-
 public class NotificationAdapter implements Notification {
 
 
@@ -26,7 +23,7 @@ public class NotificationAdapter implements Notification {
                 communicationMail = new Mail();
             }
         } catch (Exception e) {
-            System.out.println("Failed to send notification, please check with you Administrator");
+            System.out.println("Failed to send notification, please check with you administrator");
         }
     }
 
@@ -45,12 +42,12 @@ public class NotificationAdapter implements Notification {
             else if (notificationObject == null) {
                 System.out.println("Overig");
                 String defaultEmail = "admin@admin.com";
-                String defaultMessage = "Notification send to Administrator";
+                String defaultMessage = "Notification send to administrator";
                 notificationObject = communicationMail.send(name, defaultEmail, defaultMessage);
             }
 
         } catch (Exception e) {
-            System.out.println("Failed to send notification, please check with you Administrator");
+            System.out.println("Failed to send notification, please check with you administrator");
         }
 
         return notificationObject;

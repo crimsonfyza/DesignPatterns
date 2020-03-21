@@ -1,7 +1,5 @@
 package sample.web.ui.domain;
 
-import sample.web.ui.repository.Communication;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

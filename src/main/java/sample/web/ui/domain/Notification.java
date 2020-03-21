@@ -1,4 +1,4 @@
-package sample.web.ui.repository;
+package sample.web.ui.domain;
 
 import sample.web.ui.domain.NotificationObject;
 
