@@ -1,6 +1,5 @@
 package sample.web.ui.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -63,18 +62,7 @@ public class ClassroomController {
         saveClassroom(newClassroom, classroom.getBoard(), classroom.getName(), classroom.getCapacity());
 
         redirect.addFlashAttribute("globalMessage", "Successfully created a new classroom");
-        return new ModelAndView("redirect:/classroom", "classroom.id", classroom.getId());
-    }
-
-    public void addClassroom(){
-        WhiteboardClassroomDecorator whiteboardClassroom = new WhiteboardClassroomDecorator(new ConferenceClassroom());
-        classroomRepository.save(whiteboardClassroom.assignValues("AB101", 30));
-
-        BlackboardClassroomDecorator blackboardClassroom = new BlackboardClassroomDecorator(new RegularClassroom());
-        classroomRepository.save(blackboardClassroom.assignValues("AB102", 40));
-
-        ComputerClassroom computerClassroom1 = new ComputerClassroom();
-        classroomRepository.save(computerClassroom1.assignValues("AB103", 20));
+        return new ModelAndView("redirect:/classroom/", "classroom", classroom);
     }
 
     public void saveClassroom(Classroom classroom, String board, String name, int capacity){
@@ -93,5 +81,17 @@ public class ClassroomController {
                 classroomRepository.save(classroom.assignValues(name, capacity));
                 break;
         }
+    }
+
+    @GetMapping(value = "delete/{id}")
+    public ModelAndView delete(@PathVariable("id") Long id){
+        this.classroomRepository.deleteById(id);
+        Iterable<ClassroomObject> classrooms = this.classroomRepository.findAll();
+        return new ModelAndView("classrooms/list", "classrooms", classrooms);
+    }
+
+    @GetMapping(value = "modify/{id}")
+    public ModelAndView modifyForm(@PathVariable("id") ClassroomObject classroom){
+        return new ModelAndView("classrooms/form", "classrooms", classroom);
     }
 }

@@ -11,26 +11,27 @@
 <body>
 <div layout:fragment="content" class="container">
     <h1 layout:fragment="header">Classrooms : View</h1>
-    <div class="pull-right">
-        <a th:href="@{/classroom}" href="list.html"> Classrooms </a>
-    </div>
+    <a th:href="@{/classroom}" href="list.html"> All classrooms </a>
     <dl>
         <dt>ID</dt>
         <dd id="id" th:text="${classroom.id}"></dd>
+        <br>
         <dt>Name</dt>
         <dd id="name" th:text="${classroom.name}"></dd>
+        <br>
         <dt>Capacity</dt>
         <dd id="capacity" th:text="${classroom.capacity}"></dd>
+        <br>
         <dt>Type</dt>
         <dd id="type" th:text="${classroom.type}"></dd>
+        <br>
         <dt>Board</dt>
         <dd id="board" th:text="${classroom.board}"></dd>
     </dl>
-<!--    <div class="pull-left">-->
-<!--        <a href="messages" th:href="@{'/delete/' + ${message.id}}">-->
-<!--            delete </a> | <a href="form.html"-->
-<!--                             th:href="@{'/modify/' + ${message.id}}"> modify </a>-->
-<!--    </div>-->
+    <div class="pull-left">
+        <a href="classroom" th:href="@{'/classroom/modify/' + ${classroom.id}}">Modify</a> |
+        <a href="classroom" th:href="@{'/classroom/delete/' + ${classroom.id}}">Delete</a>
+    </div>
 </div>
 </body>
 </html>

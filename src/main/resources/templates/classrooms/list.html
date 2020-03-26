@@ -18,16 +18,17 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>Capacity</td>
-                        <td>Type</td>
-                        <td>Board</td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Capacity</th>
+                        <th>Type</th>
+                        <th>Board</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:if="${#lists.isEmpty(classrooms)}">
-                        <td colspan="5">No classrooms</td>
+                        <td colspan="6">No classrooms</td>
                     </tr>
                     <tr th:each="classroom : ${classrooms}">
                         <td th:text="${classroom.id}"></td>
@@ -35,6 +36,11 @@
                         <td th:text="${classroom.capacity}"></td>
                         <td th:text="${classroom.type}"></td>
                         <td th:text="${classroom.board}"></td>
+                        <td>
+                            <a href="classroom" th:href="@{'/classroom/' + ${classroom.id}}">View</a> |
+                            <a href="classroom" th:href="@{'/classroom/modify/' + ${classroom.id}}">Modify</a> |
+                            <a href="classroom" th:href="@{'/classroom/delete/' + ${classroom.id}}">Delete</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
