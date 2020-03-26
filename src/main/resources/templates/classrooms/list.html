@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Classrooms : View all</title>
+        <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    </head>
+    <body>
+        <div layout:fragment="content" class="container">
+            <h1 layout:fragment="header">Classrooms : View all</h1>
+            <div class="container">
+                <a href="form.html" th:href="@{/classroom(form)}" class="btn btn-primary">Create classroom</a>
+            </div>
+            <br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Capacity</td>
+                        <td>Type</td>
+                        <td>Board</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.isEmpty(classrooms)}">
+                        <td colspan="5">No classrooms</td>
+                    </tr>
+                    <tr th:each="classroom : ${classrooms}">
+                        <td th:text="${classroom.id}"></td>
+                        <td th:text="${classroom.name}"></td>
+                        <td th:text="${classroom.capacity}"></td>
+                        <td th:text="${classroom.type}"></td>
+                        <td th:text="${classroom.board}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

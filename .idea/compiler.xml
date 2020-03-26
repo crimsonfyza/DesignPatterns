@@ -12,6 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="spring-boot-sample-web-ui" target="1.8" />
+      <module name="StategyPattern" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
