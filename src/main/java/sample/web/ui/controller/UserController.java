@@ -21,6 +21,8 @@ import sample.web.ui.repository.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/")
@@ -51,23 +53,23 @@ public class UserController {
         int typeNumber = 23523523;
         String phoneNumber = "12312";
         String Email = "akbudwwakd";
-
+        Boolean subscribed = true  ;
 
         //
 
        if (type == "Teacher") {
            TeacherAccount teacherAccount = new TeacherAccount();
-           userRepository.save(teacherAccount.determineRole(username,typeNumber , phoneNumber , Email));
+           userRepository.save(teacherAccount.determineRole(username,typeNumber , phoneNumber , Email, subscribed));
        }
 
         if (type == "Student") {
             StudentAccount studentAccount = new StudentAccount();
-            userRepository.save(studentAccount.determineRole(username,typeNumber , phoneNumber , Email));
+            userRepository.save(studentAccount.determineRole(username,typeNumber , phoneNumber , Email, subscribed));
         }
 
         if (type == "Examiner") {
             ExaminerAccount examinerAccount = new ExaminerAccount();
-            userRepository.save(examinerAccount.determineRole(username,typeNumber , phoneNumber , Email));
+            userRepository.save(examinerAccount.determineRole(username,typeNumber , phoneNumber , Email, subscribed));
         }
 
 

@@ -27,15 +27,18 @@ public class UserAccount {
 
     private String phoneNumber;
 
-    private String Email;
+    private String email;
 
-    public UserAccount(String username, String userRole, String type, int typeNumber, String phoneNumber,String Email) {
+    private Boolean subscribed;
+
+    public UserAccount(String username, String userRole, String type, int typeNumber, String phoneNumber,String email, Boolean subscribed) {
         this.username = username;
         this.userRole = userRole;
         this.type = type;
         this.typeNumber = typeNumber;
         this.phoneNumber = phoneNumber;
-        this.Email = Email;
+        this.email = email;
+        this.subscribed = subscribed;
     }
 
 }
