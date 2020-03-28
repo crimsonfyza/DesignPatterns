@@ -1,12 +1,12 @@
 package sample.web.ui.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+        import lombok.Getter;
+        import lombok.NoArgsConstructor;
+        import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+        import javax.persistence.Entity;
+        import javax.persistence.GeneratedValue;
+        import javax.persistence.Id;
 
 @Entity
 @Getter @Setter
@@ -25,5 +25,4 @@ public class NotificationObject {
         this.timeStamp = timeStamp;
         this.Message = Message;
     }
-
 }

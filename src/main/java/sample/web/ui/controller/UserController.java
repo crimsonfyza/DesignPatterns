@@ -33,7 +33,6 @@ public class UserController {
     private final NotificationRepository notificationRepository;
 
     // constructor dependency injection
-	@Autowired
 	public UserController(
                              UserRepository userRepository,
                              NotificationRepository notificationRepository
