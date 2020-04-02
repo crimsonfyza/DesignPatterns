@@ -34,7 +34,6 @@ public class TopicController {
         this.messageRepository = messageRepository;
     }
 
-    @Autowired
     public void iniateData() {
 
         //PREPARE FOR NEW OBJECT
@@ -55,6 +54,7 @@ public class TopicController {
     @Transactional
     @GetMapping
     public ModelAndView createForm(@ModelAttribute MessageObject messageObject){
+        iniateData();
         return new ModelAndView("topics/form", "messageObject", messageObject);
     }
 
