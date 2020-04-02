@@ -15,17 +15,25 @@ package sample.web.ui.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sample.web.ui.domain.*;
 import sample.web.ui.repository.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("registration")
 
 public class UserController {
 
@@ -41,42 +49,48 @@ public class UserController {
         this.notificationRepository = notificationRepository;
 	}
 
-    @Autowired
-    private void createUser() {
+    @Transactional
+    @GetMapping
+    public ModelAndView createForm(@ModelAttribute UserAccount userAccount){
+        return new ModelAndView("registration/form", "userAccount", userAccount);
+    }
 
-	    // USERINPUT from Web interface
-
-
-        String type = "Teacher";
-        String username = "KEVIN";
-        int typeNumber = 23523523;
-        String phoneNumber = "12312";
-        String Email = "akbudwwakd";
-        Boolean subscribed = true  ;
-
-        //
-
-       if (type == "Teacher") {
-           TeacherAccount teacherAccount = new TeacherAccount();
-           userRepository.save(teacherAccount.determineRole(username,typeNumber , phoneNumber , Email, subscribed));
-       }
-
-        if (type == "Student") {
-            StudentAccount studentAccount = new StudentAccount();
-            userRepository.save(studentAccount.determineRole(username,typeNumber , phoneNumber , Email, subscribed));
+    @PostMapping
+    public ModelAndView create(@Valid UserAccount userAccount, BindingResult result, RedirectAttributes redirect) {
+        if (result.hasErrors()) {
+            return new ModelAndView("/registration/form", "formErrors", result.getAllErrors());
         }
 
-        if (type == "Examiner") {
-            ExaminerAccount examinerAccount = new ExaminerAccount();
-            userRepository.save(examinerAccount.determineRole(username,typeNumber , phoneNumber , Email, subscribed));
-        }
+        System.out.println(userAccount);
+        System.out.println(userAccount.getUserRole());
+        System.out.println(userAccount);
 
+        String userRole = userAccount.getUserRole();
+
+
+        switch (userAccount.getUserRole()) {
+            case "Teacher":
+                TeacherAccount teacherAccount = new TeacherAccount();
+                userRepository.save(teacherAccount.determineRole(userAccount.getUsername(),userAccount.getTypeNumber() , userAccount.getPhoneNumber() , userAccount.getEmail(), userAccount.getSubscribed()));
+                break;
+            case "Student":
+                StudentAccount studentAccount = new StudentAccount();
+                userRepository.save(studentAccount.determineRole(userAccount.getUsername(),userAccount.getTypeNumber() , userAccount.getPhoneNumber() , userAccount.getEmail(), userAccount.getSubscribed()));
+                break;
+            case "Examiner":
+                ExaminerAccount examinerAccount = new ExaminerAccount();
+                userRepository.save(examinerAccount.determineRole(userAccount.getUsername(),userAccount.getTypeNumber() , userAccount.getPhoneNumber() , userAccount.getEmail(), userAccount.getSubscribed()));
+                break;
+            default:
+
+        }
 
         //ADAPTER PATTERN
-        NotificationAdapter notificationAdapter = new NotificationAdapter(Email, phoneNumber);
-        NotificationObject notificationObject = notificationAdapter.notify(username, Email, phoneNumber, "Het bericht wordt verstuurd");
+        NotificationAdapter notificationAdapter = new NotificationAdapter(userAccount.getEmail(), userAccount.getPhoneNumber());
+        NotificationObject notificationObject = notificationAdapter.notify(userAccount.getUsername(), userAccount.getEmail(), userAccount.getPhoneNumber(), "Het bericht wordt verstuurd");
         notificationRepository.save(notificationObject);
 
+        return new ModelAndView("redirect:/registration", "userAccount", userAccount);
     }
 
 }
