@@ -48,7 +48,7 @@ public class UserController {
 
 
         String type = "Teacher";
-        String username = "Michael";
+        String username = "KEVIN";
         int typeNumber = 23523523;
         String phoneNumber = "12312";
         String Email = "akbudwwakd";
@@ -76,7 +76,6 @@ public class UserController {
         NotificationAdapter notificationAdapter = new NotificationAdapter(Email, phoneNumber);
         NotificationObject notificationObject = notificationAdapter.notify(username, Email, phoneNumber, "Het bericht wordt verstuurd");
         notificationRepository.save(notificationObject);
-
 
     }
 

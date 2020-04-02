@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Send message to subscribers</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1 layout:fragment="header">Topics : Create</h1>
+
+    <form id="messageForm" th:action="@{topic}" th:object="${messageObject}"
+          action="#" method="post">
+
+        <label for="message">Message</label>
+        <textarea id="message" th:field="*{message}"></textarea>
+
+        <div class="form-actions">
+            <input type="submit" value="Send" />
+        </div>
+    </form>
+</div>
+</body>
+</html>

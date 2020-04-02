@@ -8,7 +8,7 @@ private Newspaper topic;
             topic = new Newspaper();
         }
 
-        public void addSubscriber (String uniqueUserKey){
+        public void addSubscriber (Long uniqueUserKey){
             Observer subscriber = new NewspaperSubscriber(uniqueUserKey);
             topic.register(subscriber);
             subscriber.setSubject(topic);

@@ -51,7 +51,7 @@ public class Newspaper implements Subject {
 
     //method to post message to the topic
     public void postMessage(String msg){
-        System.out.println("New post: "+msg);
+        //System.out.println("New post: "+msg);
         this.message=msg;
         this.changed=true;
         notifyObservers();
