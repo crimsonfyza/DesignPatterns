@@ -61,13 +61,6 @@ public class UserController {
             return new ModelAndView("/registration/form", "formErrors", result.getAllErrors());
         }
 
-        System.out.println(userAccount);
-        System.out.println(userAccount.getUserRole());
-        System.out.println(userAccount);
-
-        String userRole = userAccount.getUserRole();
-
-
         switch (userAccount.getUserRole()) {
             case "Teacher":
                 TeacherAccount teacherAccount = new TeacherAccount();
