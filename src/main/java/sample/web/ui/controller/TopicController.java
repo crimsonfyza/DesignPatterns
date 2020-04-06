@@ -34,29 +34,29 @@ public class TopicController {
         this.messageRepository = messageRepository;
     }
 
-    public void iniateData() {
+//    public void iniateData() {
+//
+//        //PREPARE FOR NEW OBJECT
+//        Users user = new Users();
+//        Iterable<UserAccount> allUsers =  user.getAllUsers(userRepository);
+//
+//        List<UserAccount> accountList = user.getAllSubscribers(allUsers);
+//
+//        topic = new Topic();
+//        topic.initiateTopic();
+//
+//        for (UserAccount current :accountList ) {
+//            topic.addSubscriber(current.getId());
+//        }
+//
+//    }
 
-        //PREPARE FOR NEW OBJECT
-        Users user = new Users();
-        Iterable<UserAccount> allUsers =  user.getAllUsers(userRepository);
-
-        List<UserAccount> accountList = user.getAllSubscribers(allUsers);
-
-        topic = new Topic();
-        topic.initiateTopic();
-
-        for (UserAccount current :accountList ) {
-            topic.addSubscriber(current.getId());
-        }
-
-    }
-
-    @Transactional
-    @GetMapping
-    public ModelAndView createForm(@ModelAttribute MessageObject messageObject){
-        iniateData();
-        return new ModelAndView("topics/form", "messageObject", messageObject);
-    }
+//    @Transactional
+//    @GetMapping
+//    public ModelAndView createForm(@ModelAttribute MessageObject messageObject){
+//        iniateData();
+//        return new ModelAndView("topics/form", "messageObject", messageObject);
+//    }
 
     @PostMapping
     public ModelAndView create(@Valid MessageObject messageObject, BindingResult result, RedirectAttributes redirect) {

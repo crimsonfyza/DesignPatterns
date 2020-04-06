@@ -16,11 +16,11 @@ public class Users {
         this.userRepository = userRepository;
     }
 
-    public Iterable<UserAccount> getAllUsers (UserRepository userRepository) {
-        Iterable<UserAccount> listvalues = userRepository.findAll();
-        return listvalues;
-
-    }
+//    public Iterable<UserAccount> getAllUsers (UserRepository userRepository) {
+//        Iterable<UserAccount> listvalues = userRepository.findAll();
+//        return listvalues;
+//
+//    }
 
     public void deleteUserById () {
 
