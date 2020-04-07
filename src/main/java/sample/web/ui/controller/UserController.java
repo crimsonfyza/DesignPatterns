@@ -15,6 +15,9 @@ package sample.web.ui.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +31,8 @@ import org.springframework.stereotype.Controller;
 import sample.web.ui.service.SecurityService;
 import sample.web.ui.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -43,9 +48,6 @@ public class UserController {
     @Autowired
     private SecurityService securityService;
 
-//    @Autowired
-//    private UserValidator userValidator;
-
     @Autowired
     public UserController(
             RoleRepository roleRepository
@@ -57,26 +59,10 @@ public class UserController {
     @Transactional
     @GetMapping(value = "registration")
     public ModelAndView createForm(@ModelAttribute User user){
-//        List<String> roles = new ArrayList<String>();
-//        roles.add("Student");
-//        roles.add("Teacher");
-//        roles.add("Examinator");
-//        model.addAttribute("roles", roles);
-//        model.addAttribute("userForm", new User());
         return new ModelAndView("registration", "user", user);
     }
 
-//    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-//    public String registration(Model model) {
-//        List<String> roles = new ArrayList<String>();
-//        roles.add("Student");
-//        roles.add("Teacher");
-//        roles.add("Examinator");
-//        model.addAttribute("roles", roles);
-//        model.addAttribute("userForm", new User());
-//        //model.addAttribute("roleForm", new Role());
-//        return "registration";
-//    }
+
 
     @PostMapping(value = "registration")
     public ModelAndView create(@Valid User user, BindingResult result, RedirectAttributes redirect){
@@ -102,35 +88,30 @@ public class UserController {
     }
 
 
-//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-//    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-//        Role userRole = new Role();
-//        List<Role> roles = roleRepository.findAll();
-//        userRole.setName(userForm.getRole());
-//        for (Role role : roles) {
-//            if (role.getName().equals(userRole.getName())) {
-//                userRole.setId(role.getId());
-//            }
-//        }
-//        Set<Role> userRoles = new TreeSet<Role>(new RoleComp());
-//        userRoles.add(userRole);
-//        userForm.setRoles(userRoles);
-//        userService.save(userForm);
-//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-//
-//        return "redirect:/welcome";
-//
-//    }
+    @Transactional
+    @GetMapping(value = "login")
+    public ModelAndView login(@ModelAttribute User user){
+        return new ModelAndView("login", "user", user);
+    }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
 
-        if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+    @PostMapping(value = "/login")
+    public ModelAndView login(@Valid User user, BindingResult result, RedirectAttributes redirect){
+        if(result.hasErrors()){
+            return new ModelAndView("login", "formErrors", result.getAllErrors());
+        }
+        securityService.autologin(user.getUsername(), user.getPassword());
+        return new ModelAndView("redirect:/home", "user", user);
+    }
 
-        return "login";
+    @GetMapping("/logout")
+    public String fetchSignoutSite(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+
+        return "redirect:/login?logout";
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)

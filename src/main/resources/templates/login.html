@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" html  xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout"gvbbbbbbbbbbbbbb>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,22 +26,41 @@
 
 <div class="container">
 
-    <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
+<!--    <form method="POST" action="/login" class="form-signin" name='login'>-->
+<!--        <h2 class="form-heading">Log in</h2>-->
 
-        <div class="form-group ${error != null ? 'has-error' : ''}">
-            <span>${message}</span>
-            <input name="username" type="text" class="form-control" placeholder="Username"
-                   autofocus="true"/>
-            <input name="password" type="password" class="form-control" placeholder="Password"/>
-            <span>${error}</span>
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+<!--        <div class="form-group ${error != null ? 'has-error' : ''}">-->
+<!--            <span>${message}</span>-->
+<!--            <input name="username" type="text" class="form-control" placeholder="Username"-->
+<!--                   autofocus="true"/>-->
+<!--            <input name="password" type="password" class="form-control" placeholder="Password"/>-->
+<!--            <span>${error}</span>-->
+<!--            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
+<!--            <button class="btn btn-lg btn-primary btn-block" type="submit" name="submit" value="submit">Log In</button>-->
 
-            <h4 class="text-center"><a href="/registration">Create an account</a></h4>
+<!--            <h4 class="text-center"><a href="/registration">Create an account</a></h4>-->
+<!--        </div>-->
+
+<!--    </form>-->
+
+    <form id="messageForm" th:action="@{login}" th:object="${user}"
+          action="#" method="post">
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
+            <p th:each="error : ${#fields.errors('*')}" th:text="${error}">
+                Validation error</p>
         </div>
 
+        <label for="username">Name</label>
+        <input type="text" id="username" th:field="*{username}">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" th:field="*{password}">
+
+
+        <div class="form-actions">
+            <input type="submit" value="Save" />
+        </div>
     </form>
 
 </div>
