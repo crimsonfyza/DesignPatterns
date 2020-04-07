@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sample.web.ui.domain.*;
 import sample.web.ui.repository.MessageRepository;
+import sample.web.ui.repository.OldUserRepository;
 import sample.web.ui.repository.UserRepository;
 
 import javax.validation.Valid;
@@ -22,41 +23,41 @@ import java.util.Optional;
 @RequestMapping("topic")
 
 public class TopicController {
-    private final UserRepository userRepository;
+    private final OldUserRepository oldUserRepository;
     private final MessageRepository messageRepository;
     private Topic topic;
 
     public TopicController (
-            UserRepository userRepository,
+            OldUserRepository oldUserRepository,
             MessageRepository messageRepository
     ) {
-        this.userRepository = userRepository;
+        this.oldUserRepository = oldUserRepository;
         this.messageRepository = messageRepository;
     }
 
-//    public void iniateData() {
-//
-//        //PREPARE FOR NEW OBJECT
-//        Users user = new Users();
-//        Iterable<UserAccount> allUsers =  user.getAllUsers(userRepository);
-//
-//        List<UserAccount> accountList = user.getAllSubscribers(allUsers);
-//
-//        topic = new Topic();
-//        topic.initiateTopic();
-//
-//        for (UserAccount current :accountList ) {
-//            topic.addSubscriber(current.getId());
-//        }
-//
-//    }
+    public void iniateData() {
 
-//    @Transactional
-//    @GetMapping
-//    public ModelAndView createForm(@ModelAttribute MessageObject messageObject){
-//        iniateData();
-//        return new ModelAndView("topics/form", "messageObject", messageObject);
-//    }
+        //PREPARE FOR NEW OBJECT
+        Users user = new Users();
+        Iterable<UserAccount> allUsers =  user.getAllUsers(oldUserRepository);
+
+        List<UserAccount> accountList = user.getAllSubscribers(allUsers);
+
+        topic = new Topic();
+        topic.initiateTopic();
+
+        for (UserAccount current :accountList ) {
+            topic.addSubscriber(current.getId());
+        }
+
+    }
+
+    @Transactional
+    @GetMapping
+    public ModelAndView createForm(@ModelAttribute MessageObject messageObject){
+        iniateData();
+        return new ModelAndView("topics/form", "messageObject", messageObject);
+    }
 
     @PostMapping
     public ModelAndView create(@Valid MessageObject messageObject, BindingResult result, RedirectAttributes redirect) {
