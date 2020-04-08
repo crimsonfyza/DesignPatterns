@@ -12,7 +12,7 @@
         <div layout:fragment="content" class="container">
             <h1 layout:fragment="header">Classrooms : Create</h1>
 
-            <form id="messageForm" th:action="@{classroom}" th:object="${classroom}"
+            <form id="messageForm" th:action="@{/classroom}" th:object="${classroom}"
                   action="#" method="post">
                 <div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
                     <p th:each="error : ${#fields.errors('*')}" th:text="${error}">
