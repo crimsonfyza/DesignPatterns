@@ -16,6 +16,12 @@ import sample.web.ui.repository.UserRepository;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
     @Autowired

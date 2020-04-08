@@ -1,5 +1,11 @@
 package sample.web.ui.service;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 public interface SecurityService {
     String findLoggedInUsername();
 

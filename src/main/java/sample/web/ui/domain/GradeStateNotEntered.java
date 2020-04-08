@@ -6,6 +6,12 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 public class GradeStateNotEntered implements GradeState {
 
     @Override

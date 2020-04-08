@@ -18,6 +18,14 @@ import sample.web.ui.service.UserService;
 
 import java.security.Principal;
 
+/**
+ * Controller student functions.
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
+
 @Controller
 @RequestMapping("student/grade")
 public class StudentGradeController {
@@ -34,6 +42,7 @@ public class StudentGradeController {
         this.examRepository = examRepository;
     }
 
+    //GET a list of all the grades of the current user
     @Transactional
     @GetMapping
     public ModelAndView list(Principal principal){
@@ -44,12 +53,15 @@ public class StudentGradeController {
         return new ModelAndView("grades/list", "grades", grades);
     }
 
+    //GET a list off al the Exams available
     @Transactional
     @GetMapping(value = "/exams")
     public ModelAndView listExams(){
         Iterable<Exam> exams = examRepository.findAll();
         return new ModelAndView("exams/list", "exams", exams);
     }
+
+    //GET a single exaM and make a new exam entry (grade) from the exam
     @Transactional
     @GetMapping(value = "/exams/{id}")
     public ModelAndView getExam(@PathVariable("id") Long id, Principal principal){

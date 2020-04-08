@@ -1,6 +1,12 @@
 package sample.web.ui.domain;
 
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 public abstract class ExamFactory {
     public static Exam getExam(ExamType type) {
         Exam exam = null;

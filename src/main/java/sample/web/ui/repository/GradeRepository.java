@@ -6,6 +6,12 @@ import sample.web.ui.domain.Exam;
 import sample.web.ui.domain.Grade;
 import sample.web.ui.domain.User;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 public interface GradeRepository extends JpaRepository<Grade, Long> {
     Iterable<Grade> findAllByExam(Exam exam);
     Iterable<Grade> findAllByStudent(User student);

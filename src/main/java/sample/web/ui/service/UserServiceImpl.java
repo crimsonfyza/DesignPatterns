@@ -9,6 +9,12 @@ import org.springframework.stereotype.Service;
 import sample.web.ui.repository.RoleRepository;
 import sample.web.ui.repository.UserRepository;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired

@@ -1,5 +1,11 @@
 package sample.web.ui.domain;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 public class GradeStateConcept implements GradeState {
     @Override
     public void next(Grade grade) {

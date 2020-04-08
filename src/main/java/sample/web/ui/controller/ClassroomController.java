@@ -1,5 +1,7 @@
 package sample.web.ui.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +11,11 @@ import sample.web.ui.domain.*;
 import sample.web.ui.repository.*;
 
 import org.springframework.stereotype.Controller;
+import sample.web.ui.service.SecurityService;
 
 import javax.validation.Valid;
 
+@PreAuthorize("hasAuthority('Examinator')")
 @Controller
 @RequestMapping("classroom")
 public class ClassroomController {
@@ -21,6 +25,8 @@ public class ClassroomController {
         this.classroomRepository = classroomRepository;
     }
 
+
+    @PreAuthorize("hasAuthority('Examinator')")
     @Transactional
     @GetMapping
     public ModelAndView list(){
@@ -39,6 +45,7 @@ public class ClassroomController {
         return new ModelAndView("classrooms/form", "classroom", classroom);
     }
 
+    @Transactional
     @PostMapping
     public ModelAndView create(@Valid ClassroomObject classroom, BindingResult result, RedirectAttributes redirect){
         if(result.hasErrors()){
@@ -83,6 +90,7 @@ public class ClassroomController {
         }
     }
 
+    @Transactional
     @GetMapping(value = "delete/{id}")
     public ModelAndView delete(@PathVariable("id") Long id){
         this.classroomRepository.deleteById(id);
@@ -90,6 +98,7 @@ public class ClassroomController {
         return new ModelAndView("classrooms/list", "classrooms", classrooms);
     }
 
+    @Transactional
     @GetMapping(value = "modify/{id}")
     public ModelAndView modifyForm(@PathVariable("id") ClassroomObject classroom){
         return new ModelAndView("classrooms/form", "classroom", classroom);

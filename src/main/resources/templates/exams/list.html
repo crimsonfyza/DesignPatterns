@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
-      layout:decorator="layout"
-      lang="en">
+      layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +9,19 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<!--Navigation bar-->
+<div th:replace="fragments/navbar :: header">...</div>
+<!--end of Navigation bar-->
 <div layout:fragment="content" class="container">
-    <!--Navigation bar-->
-    <div th:replace="fragments/navbar :: header">...</div>
-    <!--end of Navigation bar-->
 
     <h1 layout:fragment="header">Exams : View all</h1>
-    <div class="container">
+    <div sec:authorize="hasAuthority('Teacher')" class="container">
         <a href="/teacher/exam/formComputer" class="btn btn-primary">Create a new Computer Exam</a>
         <a href="/teacher/exam/formWritten" class="btn btn-primary">Create a new Written  Exam</a>
         <a href="/teacher/exam/formOral" class="btn btn-primary">Create a new Oral Exam</a>
     </div>
     <br>
     <table class="table table-bordered table-striped">
-        <caption>Table with all classrooms</caption>
         <thead>
         <tr>
             <th id="id">ID</th>

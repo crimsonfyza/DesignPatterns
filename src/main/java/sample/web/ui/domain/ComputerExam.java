@@ -8,13 +8,18 @@ import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Component
 public class ComputerExam extends Exam {
-
 
     private Boolean ownComputer = false;
 

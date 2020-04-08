@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Entity
 @Getter
 @Setter
@@ -27,7 +33,6 @@ public class Grade {
 
     private String currentState = this.getState().getClass().getSimpleName();
 
-    //@OneToOne(cascade = {CascadeType.MERGE}) old
     @ManyToOne(cascade = {CascadeType.MERGE})
     private Exam exam;
 
@@ -50,11 +55,11 @@ public class Grade {
 
     public GradeState determineCurrentState(){
         GradeState gradeState = null;
-        if(this.getCurrentState() == "GradeStateNotEntered") {
+        if(this.getCurrentState().equals("GradeStateNotEntered")) {
             gradeState = new GradeStateNotEntered();
-        } else if (this.getCurrentState() == "GradeStateConcept"){
+        } else if (this.getCurrentState().equals("GradeStateConcept")){
             gradeState = new GradeStateConcept();
-        }else if(this.getCurrentState() == "GradeStateFinal") {
+        }else if(this.getCurrentState().equals("GradeStateFinal")) {
             gradeState = new GradeStateFinal();
         }
         return gradeState;

@@ -10,6 +10,12 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Entity
 @Getter
 @Setter

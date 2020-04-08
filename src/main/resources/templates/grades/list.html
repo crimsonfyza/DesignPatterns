@@ -40,6 +40,9 @@
             <td th:if="${grade.getCurrentState() == 'GradeStateNotEntered'}">Not entered</td>
             <td th:if="${grade.getCurrentState() == 'GradeStateConcept'}">Concept</td>
             <td th:if="${grade.getCurrentState() == 'GradeStateFinal'}">Final</td>
+            <td>
+                <a sec:authorize="hasAuthority('Teacher')" href="classroom" th:href="@{'/teacher/exam/grades/ '+ ${grade.getId()}}">Update</a>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -28,6 +28,7 @@ import sample.web.ui.domain.*;
 import sample.web.ui.repository.*;
 
 import org.springframework.stereotype.Controller;
+import sample.web.ui.service.RoleService;
 import sample.web.ui.service.SecurityService;
 import sample.web.ui.service.UserService;
 
@@ -35,6 +36,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.*;
+
+/**
+ * Controller for users.
+ *
+ * @author  Mark van Dalen
+ *
+ */
 
 
 @Controller
@@ -56,6 +64,7 @@ public class UserController {
     }
 
 
+    //GET the registration form
     @Transactional
     @GetMapping(value = "registration")
     public ModelAndView createForm(@ModelAttribute User user){
@@ -63,13 +72,14 @@ public class UserController {
     }
 
 
-
+    //POST a new user
     @PostMapping(value = "registration")
     public ModelAndView create(@Valid User user, BindingResult result, RedirectAttributes redirect){
         if(result.hasErrors()){
             return new ModelAndView("registration", "formErrors", result.getAllErrors());
         }
 
+        //get all the possible roles and find the matching ons
         Role userRole = new Role();
         List<Role> roles = roleRepository.findAll();
         userRole.setName(user.getRole());
@@ -78,32 +88,41 @@ public class UserController {
                 userRole.setId(role.getId());
             }
         }
-        Set<Role> userRoles = new TreeSet<Role>(new RoleComp());
+        Set<Role> userRoles = new TreeSet<Role>(new RoleService.RoleComp());
+
+        //set the role for the new user
         userRoles.add(userRole);
         user.setRoles(userRoles);
+
+        //save the new user
         userService.save(user);
+
+        //log the new user in
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
 
         return new ModelAndView("redirect:/home", "user", user);
     }
 
-
+    //GET login form
     @Transactional
     @GetMapping(value = "login")
     public ModelAndView login(@ModelAttribute User user){
         return new ModelAndView("login", "user", user);
     }
 
-
+    //POST user login for authentication
     @PostMapping(value = "/login")
     public ModelAndView login(@Valid User user, BindingResult result, RedirectAttributes redirect){
         if(result.hasErrors()){
             return new ModelAndView("login", "formErrors", result.getAllErrors());
         }
+
+        //authenticate the user
         securityService.autologin(user.getUsername(), user.getPassword());
         return new ModelAndView("redirect:/home", "user", user);
     }
 
+    //Logout for the user
     @GetMapping("/logout")
     public String fetchSignoutSite(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -114,78 +133,12 @@ public class UserController {
         return "redirect:/home";
     }
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
-    }
-
+    //GET the homepage
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home(Model model) {
         return "home";
     }
 
-    class RoleComp implements Comparator<Role> {
-
-        @Override
-        public int compare(Role r1, Role r2) {
-            return r1.getName().compareTo(r2.getName());
-        }
-    }
 }
 
 
-//@Controller
-//@RequestMapping("registration")
-//
-//public class UserController {
-//
-//    private final UserRepository userRepository;
-//    private final NotificationRepository notificationRepository;
-//
-//    // constructor dependency injection
-//	public UserController(
-//                             UserRepository userRepository,
-//                             NotificationRepository notificationRepository
-//    ) {
-//        this.userRepository = userRepository;
-//        this.notificationRepository = notificationRepository;
-//	}
-//
-//    @Transactional
-//    @GetMapping
-//    public ModelAndView createForm(@ModelAttribute UserAccount userAccount){
-//        return new ModelAndView("registration/form", "userAccount", userAccount);
-//    }
-//
-//    @PostMapping
-//    public ModelAndView create(@Valid UserAccount userAccount, BindingResult result, RedirectAttributes redirect) {
-//        if (result.hasErrors()) {
-//            return new ModelAndView("/registration/form", "formErrors", result.getAllErrors());
-//        }
-//
-//        switch (userAccount.getUserRole()) {
-//            case "Teacher":
-//                TeacherAccount teacherAccount = new TeacherAccount();
-//                userRepository.save(teacherAccount.determineRole(userAccount.getUsername(),userAccount.getTypeNumber() , userAccount.getPhoneNumber() , userAccount.getEmail(), userAccount.getSubscribed()));
-//                break;
-//            case "Student":
-//                StudentAccount studentAccount = new StudentAccount();
-//                userRepository.save(studentAccount.determineRole(userAccount.getUsername(),userAccount.getTypeNumber() , userAccount.getPhoneNumber() , userAccount.getEmail(), userAccount.getSubscribed()));
-//                break;
-//            case "Examiner":
-//                ExaminerAccount examinerAccount = new ExaminerAccount();
-//                userRepository.save(examinerAccount.determineRole(userAccount.getUsername(),userAccount.getTypeNumber() , userAccount.getPhoneNumber() , userAccount.getEmail(), userAccount.getSubscribed()));
-//                break;
-//            default:
-//
-//        }
-//
-//        //ADAPTER PATTERN
-//        NotificationAdapter notificationAdapter = new NotificationAdapter(userAccount.getEmail(), userAccount.getPhoneNumber());
-//        NotificationObject notificationObject = notificationAdapter.notify(userAccount.getUsername(), userAccount.getEmail(), userAccount.getPhoneNumber(), "Het bericht wordt verstuurd");
-//        notificationRepository.save(notificationObject);
-//
-//        return new ModelAndView("redirect:/registration", "userAccount", userAccount);
-//    }
-//
-//}

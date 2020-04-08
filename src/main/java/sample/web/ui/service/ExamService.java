@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Service
 @RequiredArgsConstructor
 public class ExamService {

@@ -9,10 +9,15 @@ import sample.web.ui.repository.ClassroomRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Service
 @RequiredArgsConstructor
 public class ClassroomService {
-
 
         private final ClassroomRepository classroomRepository;
 

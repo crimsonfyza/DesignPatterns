@@ -7,6 +7,12 @@ import sample.web.ui.domain.User;
 
 import java.util.Iterator;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 public interface ExamRepository extends CrudRepository<Exam, Long> {
     Iterable<Exam> findAllByTeacher(User teacher);
 }

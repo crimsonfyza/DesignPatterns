@@ -18,6 +18,14 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
+/**
+ * security configuration for the different views in the application.
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -37,20 +45,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/resources/**","fragments/navbar", "/static/**","/registration", "/home").permitAll()
-                    .antMatchers("/classrooms").hasAuthority("Examinator")
-                    .antMatchers(HttpMethod.POST, "/api/v1/**").permitAll()
-                    .antMatchers(HttpMethod.PUT, "/api/v1/**").permitAll()
-                    .antMatchers(HttpMethod.GET, "/api/v1/**").permitAll()
-                    .antMatchers(HttpMethod.DELETE, "/api/v1/**").permitAll()
-//                    .antMatchers("/welcome").hasAnyAuthority("Student")
-//                    .antMatchers("/student/**").hasAuthority("Student")
-//                    .antMatchers("/teacher/**").hasAuthority("Teacher")
+
+                    .antMatchers("/resources/**","/fragments/navbar", "/static/**","/registration", "/home").permitAll()
+
+                    .antMatchers("/classrooms/**").hasAuthority("Examinator")
+                //set authorisation global items
+                //set authorisation  for classrooms
+                    //set authorisation  for grades
+                    .antMatchers("/grades/list").hasAnyAuthority("Student","Teacher")
+                    .antMatchers("/grades/form").hasAuthority("Teacher")
+
+                    //set authorisation  for exams
+                    .antMatchers("/exams/list").hasAnyAuthority("Student","Teacher")
+                    .antMatchers("/exams/formComputer","/exams/formOral","/exams/formWritten", "/exams/view").hasAuthority("Teacher")
+
+                    //set authorisation for classroom REST API
+                    .antMatchers(HttpMethod.POST, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+                    .antMatchers(HttpMethod.PUT, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+                    .antMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+                    .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
 
                     .anyRequest().authenticated()
-               // .and().httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+                    // set authorisation so objects van be changed in the rest API
                     .and().csrf().disable()
-
+                //set authorisation for login
                 .formLogin()
                     .loginPage("/login")
                     .defaultSuccessUrl("/home", true)
@@ -64,12 +82,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
+    //authenticationManagerBean
     @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+
+    //authenticationEntryPoint
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint(){
         BasicAuthenticationEntryPoint entryPoint =

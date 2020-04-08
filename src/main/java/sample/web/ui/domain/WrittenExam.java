@@ -8,6 +8,12 @@ import sample.web.ui.repository.ExamRepository;
 import javax.persistence.Entity;
 import java.util.Date;
 
+/**
+ *
+ * @author  Mark van Dalen
+ *
+ */
+
 @Entity
 @Getter
 @Setter
