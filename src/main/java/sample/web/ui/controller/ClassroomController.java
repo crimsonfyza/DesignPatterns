@@ -92,6 +92,6 @@ public class ClassroomController {
 
     @GetMapping(value = "modify/{id}")
     public ModelAndView modifyForm(@PathVariable("id") ClassroomObject classroom){
-        return new ModelAndView("classrooms/form", "classrooms", classroom);
+        return new ModelAndView("classrooms/form", "classroom", classroom);
     }
 }

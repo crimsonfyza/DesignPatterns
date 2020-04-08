@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exams : View all</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <!--Navigation bar-->
+    <div th:replace="fragments/navbar :: header">...</div>
+    <!--end of Navigation bar-->
+
+    <h1 layout:fragment="header">Exams : View all</h1>
+    <div class="container">
+        <a href="/teacher/exam/formComputer" class="btn btn-primary">Create a new Computer Exam</a>
+        <a href="/teacher/exam/formWritten" class="btn btn-primary">Create a new Written  Exam</a>
+        <a href="/teacher/exam/formOral" class="btn btn-primary">Create a new Oral Exam</a>
+    </div>
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(exams)}">
+            <td colspan="6">No exams</td>
+        </tr>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.id}"></td>
+            <td th:text="${exam.name}"></td>
+            <td th:text="${exam.type}"></td>
+            <td th:text="${exam.date}" type="date"></td>
+            <td>
+                <a sec:authorize="hasAuthority('Teacher')"  th:href="@{'/teacher/exam/' + ${exam.id} + '/grades'}">Grades</a>
+                <a sec:authorize="hasAuthority('Student')"  th:href="@{'/student/grade/exams/' + ${exam.id}}">Enroll</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

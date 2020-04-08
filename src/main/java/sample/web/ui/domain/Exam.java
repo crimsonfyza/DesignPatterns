@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -22,11 +22,12 @@ public abstract class Exam {
     @NotEmpty(message = "Name is required.")
     private String name = null;
 
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private User teacher;
 
-    //@NotEmpty(message = "Type is required.")
     private ExamType type = null;
 
-    //@NotEmpty(message = "Date is required.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date = null;
 
     public abstract void createExam();

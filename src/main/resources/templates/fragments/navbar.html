@@ -17,17 +17,12 @@
                 <ul class="nav navbar-nav">
                         <li class="nav-link"><a href="/home">Home</a></li>
 
-                        <li sec:authorize="hasAuthority('Student')" class="nav-item"><a class="nav-link" href="#">Student 1</a></li>
-                        <li sec:authorize="hasAuthority('Student')" class="nav-item"><a class="nav-link" href="#">Student 2</a></li>
-                        <li sec:authorize="hasAuthority('Student')" class="nav-item"><a class="nav-link" href="#">Student 3</a></li>
+                        <li sec:authorize="hasAuthority('Student')" class="nav-item"><a class="nav-link" href="/student/grade/exams">Enroll</a></li>
+                        <li sec:authorize="hasAuthority('Student')" class="nav-item"><a class="nav-link" href="/student/grade">My grades</a></li>
 
-                        <li sec:authorize="hasAuthority('Teacher')" class="nav-item"><a class="nav-link" href="#">Teacher 1</a></li>
-                        <li sec:authorize="hasAuthority('Teacher')" class="nav-item"><a class="nav-link" href="#">Teacher 2</a></li>
-                        <li sec:authorize="hasAuthority('Teacher')" class="nav-item"><a class="nav-link" href="#">Teacher 3</a></li>
+                        <li sec:authorize="hasAuthority('Teacher')" class="nav-item"><a class="nav-link" href="/teacher/exam">exams</a></li>
 
-                        <li sec:authorize="hasAuthority('Examinator')" class="nav-item"><a class="nav-link" href="#">Examinator 1</a></li>
-                        <li sec:authorize="hasAuthority('Examinator')" class="nav-item"><a class="nav-link" href="#">Examinator 2</a></li>
-                        <li sec:authorize="hasAuthority('Examinator')" class="nav-item"><a class="nav-link" href="#">Examinator 3</a></li>
+                        <li sec:authorize="hasAuthority('Examinator')" class="nav-item"><a class="nav-link" href="#">My schedule</a></li>
 
                 </ul>
         </div>

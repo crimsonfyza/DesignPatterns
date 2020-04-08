@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Classrooms : Create</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<!--Navigation bar-->
+<div th:replace="fragments/navbar :: header">...</div>
+<!--end of Navigation bar-->
+
+
+<div layout:fragment="content" class="container">
+    <h1 layout:fragment="header">Exam : View</h1>
+    <a th:href="@{/classroom}" href="list.html"> All grades </a>
+    <dl>
+        <dt>ID</dt>
+        <dd id="id" th:text="${exam.id}"></dd>
+        <br>
+        <dt>Name</dt>
+        <dd id="name" th:text="${exam.name}"></dd>
+        <br>
+        <dt>Capacity</dt>
+        <dd id="capacity" th:text="${exam.date}"></dd>
+        <br>
+        <dt>Type</dt>
+        <dd id="type" th:text="${exam.type}"></dd>
+        <br>
+    </dl>
+</div>
+</body>
+</html>
