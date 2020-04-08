@@ -3,7 +3,7 @@ package sample.web.ui.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Newspaper implements Subject {
+public class Newspaper extends Subject {
 
     private List<Observer> observers;
     private String message;
