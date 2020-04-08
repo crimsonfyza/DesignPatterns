@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 /**
@@ -16,8 +17,14 @@ import java.util.Set;
 @Table(name = "user")
 public class User {
     private Long id;
+
+    @Size(min = 8, max = 50)
     private String username;
+
+    @Size(min = 8, max = 50)
     private String password;
+
+    @Size(min = 8, max = 50)
     private String passwordConfirm;
     private String role;
     private Set<Role> roles;

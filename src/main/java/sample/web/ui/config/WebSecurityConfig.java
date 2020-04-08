@@ -45,12 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-
+                    //set authorisation global items
                     .antMatchers("/resources/**","/fragments/navbar", "/static/**","/registration", "/home").permitAll()
-
+                    //set authorisation  for classrooms
                     .antMatchers("/classrooms/**").hasAuthority("Examinator")
-                //set authorisation global items
-                //set authorisation  for classrooms
                     //set authorisation  for grades
                     .antMatchers("/grades/list").hasAnyAuthority("Student","Teacher")
                     .antMatchers("/grades/form").hasAuthority("Teacher")

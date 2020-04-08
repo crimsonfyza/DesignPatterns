@@ -24,6 +24,7 @@ public class ExamTests {
         Exam exam1 = ExamFactory.getExam(ExamType.COMPUTER);
         Exam exam2 = ExamFactory.getExam(ExamType.ORAL);
         Exam exam3 = ExamFactory.getExam(ExamType.WRITTEN);
+
         // Act
 
         // Assert
