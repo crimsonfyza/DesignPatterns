@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
-      layout:decorator="layout">
+      layout:decorator="layout"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,12 +20,13 @@
     <h1 layout:fragment="header">Grades</h1>
     <br>
     <table class="table table-bordered table-striped">
+        <caption>Table with grades</caption>
         <thead>
         <tr>
-            <th>Exam name</th>
-            <th>Result</th>
-            <th sec:authorize="hasAuthority('Teacher')" >Student</th>
-            <th>State</th>
+            <th id="exam_name">Exam name</th>
+            <th id="result">Result</th>
+            <th sec:authorize="hasAuthority('Teacher')" id="student">Student</th>
+            <th id="state">State</th>
         </tr>
         </thead>
         <tbody>
