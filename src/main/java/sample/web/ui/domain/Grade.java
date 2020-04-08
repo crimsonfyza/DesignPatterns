@@ -21,24 +21,43 @@ public class Grade {
 
     private double result;
 
+
     @Transient
     private GradeState state = new GradeStateNotEntered();
 
-    @OneToOne(cascade = {CascadeType.MERGE})
+    private String currentState = this.getState().getClass().getSimpleName();
+
+    //@OneToOne(cascade = {CascadeType.MERGE}) old
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Exam exam;
 
-    //student nog eraan koppelen!!!!!
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    private User student;
 
     public void previousState() {
         state.prev(this);
     }
 
     public void nextState() {
+        this.state = determineCurrentState();
         state.next(this);
+        this.currentState = this.getState().getClass().getSimpleName();
     }
 
     public void printStatus() {
         state.printStatus();
+    }
+
+    public GradeState determineCurrentState(){
+        GradeState gradeState = null;
+        if(this.getCurrentState() == "GradeStateNotEntered") {
+            gradeState = new GradeStateNotEntered();
+        } else if (this.getCurrentState() == "GradeStateConcept"){
+            gradeState = new GradeStateConcept();
+        }else if(this.getCurrentState() == "GradeStateFinal") {
+            gradeState = new GradeStateFinal();
+        }
+        return gradeState;
     }
 
 
