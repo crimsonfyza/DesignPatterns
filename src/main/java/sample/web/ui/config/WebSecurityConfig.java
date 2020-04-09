@@ -58,12 +58,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/exams/formComputer","/exams/formOral","/exams/formWritten", "/exams/view").hasAuthority("Teacher")
 
                     //set authorisation for classroom REST API
-                    .antMatchers(HttpMethod.POST, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
-                    .antMatchers(HttpMethod.PUT, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
-                    .antMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
-                    .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+//                    .antMatchers(HttpMethod.POST, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+//                    .antMatchers(HttpMethod.PUT, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+//                    .antMatchers(HttpMethod.GET, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
+//                    .antMatchers(HttpMethod.DELETE, "/api/v1/**").hasAnyAuthority("Examinator","Teacher")
 
-                    .anyRequest().authenticated()
+                    //.anyRequest().authenticated()
                     // set authorisation so objects van be changed in the rest API
                     .and().csrf().disable()
                 //set authorisation for login

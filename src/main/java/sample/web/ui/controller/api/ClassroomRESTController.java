@@ -27,7 +27,6 @@ import java.util.Optional;
 @RequestMapping("api/v1/classrooms")
 @Slf4j
 @RequiredArgsConstructor
-@PreAuthorize("!isAuthenticated()")
         public class ClassroomRESTController {
             private final ClassroomService classroomService;
 

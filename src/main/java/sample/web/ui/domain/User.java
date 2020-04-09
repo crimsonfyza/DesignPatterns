@@ -18,13 +18,11 @@ import java.util.Set;
 public class User {
     private Long id;
 
-    @Size(min = 8, max = 50)
+    //@Size(min = 8, max = 50)
     private String username;
 
-    @Size(min = 8, max = 50)
     private String password;
 
-    @Size(min = 8, max = 50)
     private String passwordConfirm;
     private String role;
     private Set<Role> roles;
